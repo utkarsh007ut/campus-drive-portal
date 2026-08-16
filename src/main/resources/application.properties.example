@@ -1,0 +1,11 @@
+spring.datasource.url=jdbc:mysql://localhost:3306/campus_drive_portal?createDatabaseIfNotExist=true
+spring.datasource.username=root
+spring.datasource.password=YOUR_MYSQL_PASSWORD_HERE
+
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.show-sql=true
+
+server.port=8080
+
+jwt.secret=YOUR_OWN_LONG_RANDOM_SECRET_HERE
+jwt.expiration-ms=86400000
