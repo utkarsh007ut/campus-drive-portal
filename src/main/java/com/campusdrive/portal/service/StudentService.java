@@ -1,6 +1,7 @@
 package com.campusdrive.portal.service;
 
 import com.campusdrive.portal.dto.AddStudentRequest;
+import com.campusdrive.portal.dto.StudentResponse;
 import com.campusdrive.portal.entity.College;
 import com.campusdrive.portal.entity.Student;
 import com.campusdrive.portal.repository.CollegeRepository;
@@ -24,7 +25,7 @@ public class StudentService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    public Student addStudent(Long collegeId, AddStudentRequest req) {
+    public StudentResponse addStudent(Long collegeId, AddStudentRequest req) {
         College college = collegeRepository.findById(collegeId)
                 .orElseThrow(() -> new IllegalArgumentException("College not found"));
 
@@ -40,10 +41,14 @@ public class StudentService {
         student.setSkills(req.getSkills());
         student.setCollege(college);
 
-        return studentRepository.save(student);
+        Student saved = studentRepository.save(student);
+        return new StudentResponse(saved);
     }
 
-    public List<Student> getStudentsForCollege(Long collegeId) {
-        return studentRepository.findByCollegeId(collegeId);
+    public List<StudentResponse> getStudentsForCollege(Long collegeId) {
+        return studentRepository.findByCollegeId(collegeId)
+                .stream()
+                .map(StudentResponse::new)
+                .toList();
     }
 }

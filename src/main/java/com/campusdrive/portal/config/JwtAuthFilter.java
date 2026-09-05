@@ -31,24 +31,26 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         String header = request.getHeader("Authorization");
 
         if (header == null || !header.startsWith("Bearer ")) {
-            filterChain.doFilter(request, response); // no token - let it through, Security decides next
+            filterChain.doFilter(request, response);
             return;
         }
 
-        String token = header.substring(7); // strip "Bearer "
+        String token = header.substring(7);
 
         try {
             String email = jwtUtil.extractEmail(token);
             String role = jwtUtil.extractRole(token);
+            Long userId = jwtUtil.extractUserId(token);
 
             if (email != null && SecurityContextHolder.getContext().getAuthentication() == null) {
                 var authorities = List.of(new SimpleGrantedAuthority("ROLE_" + role));
-                var authToken = new UsernamePasswordAuthenticationToken(email, null, authorities);
+                // principal is now userId (Long), not email - this is the key change.
+                // Controllers read this back via authentication.getPrincipal().
+                var authToken = new UsernamePasswordAuthenticationToken(userId, null, authorities);
                 SecurityContextHolder.getContext().setAuthentication(authToken);
             }
         } catch (Exception ex) {
-            // invalid/expired/tampered token - just don't authenticate.
-            // Spring Security will reject the request downstream if the endpoint needs auth.
+            // invalid/expired token - request continues unauthenticated
         }
 
         filterChain.doFilter(request, response);
