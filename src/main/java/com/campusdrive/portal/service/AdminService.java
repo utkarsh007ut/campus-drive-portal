@@ -1,5 +1,7 @@
 package com.campusdrive.portal.service;
 
+import com.campusdrive.portal.dto.CollegeResponse;
+import com.campusdrive.portal.dto.CompanyResponse;
 import com.campusdrive.portal.entity.ApprovalStatus;
 import com.campusdrive.portal.entity.College;
 import com.campusdrive.portal.entity.Company;
@@ -20,25 +22,25 @@ public class AdminService {
         this.companyRepository = companyRepository;
     }
 
-    public List<College> getPendingColleges() {
-        return collegeRepository.findByStatus(ApprovalStatus.PENDING);
+    public List<CollegeResponse> getPendingColleges() {
+        return collegeRepository.findByStatus(ApprovalStatus.PENDING).stream().map(CollegeResponse::new).toList();
     }
 
-    public List<Company> getPendingCompanies() {
-        return companyRepository.findByStatus(ApprovalStatus.PENDING);
+    public List<CompanyResponse> getPendingCompanies() {
+        return companyRepository.findByStatus(ApprovalStatus.PENDING).stream().map(CompanyResponse::new).toList();
     }
 
-    public College decideCollege(Long id, boolean approve) {
+    public CollegeResponse decideCollege(Long id, boolean approve) {
         College college = collegeRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("College not found"));
         college.setStatus(approve ? ApprovalStatus.APPROVED : ApprovalStatus.REJECTED);
-        return collegeRepository.save(college);
+        return new CollegeResponse(collegeRepository.save(college));
     }
 
-    public Company decideCompany(Long id, boolean approve) {
+    public CompanyResponse decideCompany(Long id, boolean approve) {
         Company company = companyRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Company not found"));
         company.setStatus(approve ? ApprovalStatus.APPROVED : ApprovalStatus.REJECTED);
-        return companyRepository.save(company);
+        return new CompanyResponse(companyRepository.save(company));
     }
 }

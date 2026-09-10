@@ -1,5 +1,6 @@
 package com.campusdrive.portal.service;
 
+import com.campusdrive.portal.dto.CompanyResponse;
 import com.campusdrive.portal.dto.RegisterCompanyRequest;
 import com.campusdrive.portal.entity.ApprovalStatus;
 import com.campusdrive.portal.entity.Company;
@@ -18,7 +19,7 @@ public class CompanyService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    public Company register(RegisterCompanyRequest req) {
+    public CompanyResponse register(RegisterCompanyRequest req) {
         if (companyRepository.findByEmail(req.getEmail()).isPresent()) {
             throw new IllegalArgumentException("Email already registered");
         }
@@ -30,6 +31,6 @@ public class CompanyService {
         company.setWebsite(req.getWebsite());
         company.setStatus(ApprovalStatus.PENDING);
 
-        return companyRepository.save(company);
+        return new CompanyResponse(companyRepository.save(company));
     }
 }

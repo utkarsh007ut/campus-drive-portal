@@ -18,7 +18,7 @@ public class DriveExpiryScheduler {
         this.driveRepository = driveRepository;
     }
 
-   @Scheduled(fixedRate = 60 * 60 * 1000) // runs every hour, in milliseconds
+   @Scheduled(fixedRate = 60 * 60 * 1000)
 
 
     public void expireOverdueDrives() {

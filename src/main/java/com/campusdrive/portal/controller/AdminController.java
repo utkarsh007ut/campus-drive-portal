@@ -1,8 +1,12 @@
 package com.campusdrive.portal.controller;
 
+import com.campusdrive.portal.dto.CollegeResponse;
+import com.campusdrive.portal.dto.CompanyResponse;
 import com.campusdrive.portal.service.AdminService;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/admin")
@@ -16,22 +20,22 @@ public class AdminController {
     }
 
     @GetMapping("/colleges/pending")
-    public Object pendingColleges() {
+    public List<CollegeResponse> pendingColleges() {
         return adminService.getPendingColleges();
     }
 
     @GetMapping("/companies/pending")
-    public Object pendingCompanies() {
+    public List<CompanyResponse> pendingCompanies() {
         return adminService.getPendingCompanies();
     }
 
     @PostMapping("/colleges/{id}/decide")
-    public Object decideCollege(@PathVariable Long id, @RequestParam boolean approve) {
+    public CollegeResponse decideCollege(@PathVariable Long id, @RequestParam boolean approve) {
         return adminService.decideCollege(id, approve);
     }
 
     @PostMapping("/companies/{id}/decide")
-    public Object decideCompany(@PathVariable Long id, @RequestParam boolean approve) {
+    public CompanyResponse decideCompany(@PathVariable Long id, @RequestParam boolean approve) {
         return adminService.decideCompany(id, approve);
     }
 }

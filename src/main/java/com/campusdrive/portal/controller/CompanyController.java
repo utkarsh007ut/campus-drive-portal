@@ -1,5 +1,6 @@
 package com.campusdrive.portal.controller;
 
+import com.campusdrive.portal.dto.CompanyResponse;
 import com.campusdrive.portal.dto.RegisterCompanyRequest;
 import com.campusdrive.portal.entity.Company;
 import com.campusdrive.portal.service.CompanyService;
@@ -17,7 +18,7 @@ public class CompanyController {
     }
 
     @PostMapping("/register")
-    public Company register(@Valid @RequestBody RegisterCompanyRequest req) {
+    public CompanyResponse register(@Valid @RequestBody RegisterCompanyRequest req) {
         return companyService.register(req);
     }
 }

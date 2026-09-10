@@ -1,5 +1,6 @@
 package com.campusdrive.portal.controller;
 
+import com.campusdrive.portal.dto.CollegeResponse;
 import com.campusdrive.portal.dto.RegisterCollegeRequest;
 import com.campusdrive.portal.entity.College;
 import com.campusdrive.portal.service.CollegeService;
@@ -20,13 +21,13 @@ public class CollegeController {
     }
 
     @PostMapping("/register")
-    public College register(@Valid @RequestBody RegisterCollegeRequest req) {
+    public CollegeResponse register(@Valid @RequestBody RegisterCollegeRequest req) {
         return collegeService.register(req);
     }
 
     @GetMapping
     @PreAuthorize("hasRole('ADMIN')")
-    public List<College> listAll() {
+    public List<CollegeResponse> listAll() {
         return collegeService.listAll();
     }
 }
