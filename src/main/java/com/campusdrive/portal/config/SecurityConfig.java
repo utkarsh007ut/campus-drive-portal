@@ -39,10 +39,11 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .cors(cors -> cors.configurationSource(corsConfigurationSource())) // NEW
+                .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .csrf(csrf -> csrf.disable())
                 .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/", "/*.html", "/css/**", "/js/**").permitAll() // NEW - static frontend files
                         .requestMatchers("/api/auth/**").permitAll()
                         .requestMatchers("/api/colleges/register").permitAll()
                         .requestMatchers("/api/companies/register").permitAll()
