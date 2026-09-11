@@ -9,3 +9,6 @@ server.port=8080
 
 jwt.secret=YOUR_OWN_LONG_RANDOM_SECRET_HERE
 jwt.expiration-ms=86400000
+
+app.drive.expiry-days=10
+app.drive.max-resends=3
