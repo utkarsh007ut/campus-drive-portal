@@ -1,0 +1,69 @@
+:root {
+    --primary: #1E2761;
+    --primary-light: #eef0fb;
+    --accent: #4338ca;
+    --success: #02A896;
+    --success-light: #dcfce7;
+    --danger: #B3392F;
+    --danger-light: #fee2e2;
+    --text-dark: #1e1b2e;
+    --text-muted: #5B6472;
+    --text-faint: #9ca3af;
+    --border: #e2e6ed;
+    --bg: #f4f6fb;
+    --radius: 12px;
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
+    --shadow-md: 0 4px 16px rgba(17,24,39,0.08);
+    --shadow-lg: 0 12px 32px rgba(17,24,39,0.12);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Arial, sans-serif; }
+
+body { background: var(--bg); color: var(--text-dark); }
+
+/* ===== shared form elements, used by login + every dashboard form ===== */
+input, select {
+    padding: 11px 13px;
+    border: 1.5px solid var(--border);
+    border-radius: 9px;
+    font-size: 14px;
+    font-family: inherit;
+    background: #fcfcfd;
+    transition: all 0.2s ease;
+    width: 100%;
+}
+
+input:focus, select:focus {
+    outline: none;
+    border-color: var(--primary);
+    background: white;
+    box-shadow: 0 0 0 3px var(--primary-light);
+}
+
+button {
+    padding: 11px 18px;
+    border: none;
+    border-radius: 9px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 13.5px;
+    font-family: inherit;
+    transition: all 0.2s ease;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    color: white;
+    box-shadow: 0 6px 16px rgba(30,39,97,0.28);
+}
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 20px rgba(30,39,97,0.36); }
+
+.btn-success { background: var(--success); color: white; }
+.btn-success:hover { background: #028f7f; }
+
+.btn-danger { background: var(--danger-light); color: var(--danger); }
+.btn-danger:hover { background: var(--danger); color: white; }
+
+.message { margin-top: 10px; font-size: 13px; text-align: center; }
+.message.error { color: var(--danger); background: var(--danger-light); padding: 8px 12px; border-radius: 8px; }
+.message.success { color: var(--success); }

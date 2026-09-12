@@ -1,0 +1,57 @@
+.navbar {
+    background: rgba(255,255,255,0.85);
+    backdrop-filter: blur(10px);
+    padding: 14px 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 1px 0 rgba(0,0,0,0.06);
+    position: sticky;
+    top: 0;
+    width: 100%;
+}
+
+.navbar h2 { font-size: 17px; color: var(--primary); display: flex; align-items: center; gap: 8px; }
+.navbar > div { display: flex; align-items: center; gap: 14px; }
+.navbar span { font-size: 13px; color: var(--text-muted); }
+
+.dashboard-container { max-width: 900px; margin: 30px auto; padding: 0 20px; }
+
+section { margin-bottom: 40px; }
+section h3 { color: var(--primary); margin-bottom: 16px; font-size: 18px; }
+
+.list { display: flex; flex-direction: column; gap: 10px; }
+
+.card-row {
+    background: white;
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius);
+    padding: 16px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: var(--shadow-sm);
+    transition: all 0.2s ease;
+}
+
+.card-row:hover { box-shadow: var(--shadow-md); transform: translateY(-1px); }
+
+.card-row .info strong { display: block; color: var(--primary); font-size: 14.5px; }
+.card-row .info span { font-size: 12.5px; color: var(--text-muted); }
+
+.card-row .actions button { margin-left: 8px; }
+
+.empty-state { text-align: center; padding: 40px 20px; color: var(--text-muted); font-size: 13.5px; }
+.empty-icon { font-size: 30px; opacity: 0.5; margin-bottom: 8px; }
+
+.status-badge {
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 10.5px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+}
+.status-PENDING { background: #fef3c7; color: #92400e; }
+.status-APPROVED { background: var(--success-light); color: #166534; }
+.status-REJECTED { background: var(--danger-light); color: #991b1b; }

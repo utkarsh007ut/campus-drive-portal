@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+</head>
+<body>
+<div class="navbar">
+    <h2>🎓 Admin Dashboard</h2>
+    <div>
+        <span id="welcomeMsg"></span>
+        <button class="btn-danger" onclick="logout()">Log Out</button>
+    </div>
+</div>
+
+<div class="dashboard-container">
+    <section>
+        <h3>Pending Colleges</h3>
+        <div id="pendingColleges" class="list"></div>
+    </section>
+
+    <section>
+        <h3>Pending Companies</h3>
+        <div id="pendingCompanies" class="list"></div>
+    </section>
+</div>
+
+<script src="js/api.js"></script>
+<script src="js/admin-dashboard.js"></script>
+</body>
+</html>
