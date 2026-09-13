@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Student Dashboard</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+</head>
+<body>
+<div class="navbar">
+    <h2>🎓 Student Dashboard</h2>
+    <div><span id="welcomeMsg"></span><button class="btn-danger" onclick="logout()">Log Out</button></div>
+</div>
+
+<div class="dashboard-container">
+    <div class="tabs">
+        <button class="tab-btn active" onclick="showTab('jobs')">Browse Jobs</button>
+        <button class="tab-btn" onclick="showTab('applications')">My Applications</button>
+    </div>
+
+    <div id="tab-jobs" class="tab-panel"><div id="jobsList" class="list"></div></div>
+    <div id="tab-applications" class="tab-panel hidden"><div id="appsList" class="list"></div></div>
+</div>
+
+<script src="js/api.js"></script>
+<script src="js/student-dashboard.js"></script>
+</body>
+</html>

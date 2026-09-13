@@ -67,3 +67,5 @@ button {
 .message { margin-top: 10px; font-size: 13px; text-align: center; }
 .message.error { color: var(--danger); background: var(--danger-light); padding: 8px 12px; border-radius: 8px; }
 .message.success { color: var(--success); }
+
+.hidden { display: none; }

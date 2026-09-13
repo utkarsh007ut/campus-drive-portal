@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Register - Campus Drive Portal</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/login.css">
+</head>
+<body class="login-page">
+<div class="auth-card">
+    <div class="auth-icon">🎓</div>
+    <h1>Create an Account</h1>
+
+    <div class="tabs" style="margin-bottom:18px;">
+        <button type="button" class="tab-btn active" id="tabCollege" onclick="switchTab('college')">College</button>
+        <button type="button" class="tab-btn" id="tabCompany" onclick="switchTab('company')">Company</button>
+    </div>
+
+    <form id="collegeForm">
+        <input type="text" id="collegeName" placeholder="College Name" required>
+        <input type="email" id="collegeEmail" placeholder="Email" required>
+        <input type="password" id="collegePassword" placeholder="Password (min 8 chars)" required>
+        <input type="text" id="collegeAddress" placeholder="Address">
+        <button type="submit" class="btn-primary" style="width:100%">Register College</button>
+    </form>
+
+    <form id="companyForm" class="hidden">
+        <input type="text" id="companyName" placeholder="Company Name" required>
+        <input type="email" id="companyEmail" placeholder="Email" required>
+        <input type="password" id="companyPassword" placeholder="Password (min 8 chars)" required>
+        <input type="text" id="companyWebsite" placeholder="Website">
+        <button type="submit" class="btn-primary" style="width:100%">Register Company</button>
+    </form>
+
+    <div id="message" class="message"></div>
+    <div style="margin-top:16px; font-size:13px;"><a href="login.html">Already have an account? Log in</a></div>
+</div>
+
+<script src="js/api.js"></script>
+<script src="js/register.js"></script>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>College Dashboard</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+</head>
+<body>
+<div class="navbar">
+    <h2>🎓 College Dashboard</h2>
+    <div><span id="welcomeMsg"></span><button class="btn-danger" onclick="logout()">Log Out</button></div>
+</div>
+
+<div class="dashboard-container">
+    <div class="tabs">
+        <button class="tab-btn active" onclick="showTab('students')">My Students</button>
+        <button class="tab-btn" onclick="showTab('drives')">Incoming Drives</button>
+        <button class="tab-btn" onclick="showTab('jobs')">My Jobs</button>
+    </div>
+
+    <div id="tab-students" class="tab-panel">
+        <div class="form-panel" style="margin-bottom:24px;">
+            <h3>Add Student</h3>
+            <input type="text" id="studentName" placeholder="Name">
+            <input type="email" id="studentEmail" placeholder="Email">
+            <input type="password" id="studentPassword" placeholder="Temporary Password">
+            <input type="number" id="studentCgpa" placeholder="CGPA" step="0.1">
+            <input type="text" id="studentSkills" placeholder="Skills (comma separated)">
+            <button class="btn-primary" onclick="addStudent()">Add Student</button>
+        </div>
+        <div id="studentsList" class="list"></div>
+    </div>
+
+    <div id="tab-drives" class="tab-panel hidden">
+        <div id="drivesList" class="list"></div>
+    </div>
+
+    <div id="tab-jobs" class="tab-panel hidden">
+        <div id="jobsList" class="list"></div>
+    </div>
+</div>
+
+<script src="js/api.js"></script>
+<script src="js/college-dashboard.js"></script>
+</body>
+</html>

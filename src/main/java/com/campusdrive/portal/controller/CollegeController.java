@@ -2,7 +2,7 @@ package com.campusdrive.portal.controller;
 
 import com.campusdrive.portal.dto.CollegeResponse;
 import com.campusdrive.portal.dto.RegisterCollegeRequest;
-import com.campusdrive.portal.entity.College;
+
 import com.campusdrive.portal.service.CollegeService;
 import jakarta.validation.Valid;
 import org.springframework.security.access.prepost.PreAuthorize;

@@ -55,3 +55,35 @@ section h3 { color: var(--primary); margin-bottom: 16px; font-size: 18px; }
 .status-PENDING { background: #fef3c7; color: #92400e; }
 .status-APPROVED { background: var(--success-light); color: #166534; }
 .status-REJECTED { background: var(--danger-light); color: #991b1b; }
+
+.tabs { display: flex; gap: 8px; margin-bottom: 20px; flex-wrap: wrap; }
+
+.tab-btn {
+    padding: 10px 20px;
+    border: none;
+    background: white;
+    border-radius: 9px;
+    cursor: pointer;
+    box-shadow: var(--shadow-sm);
+    font-weight: 600;
+    font-size: 13px;
+    color: var(--text-muted);
+}
+
+.tab-btn.active {
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    color: white;
+}
+
+.tab-panel.hidden { display: none; }
+
+.form-panel {
+    background: white;
+    padding: 24px;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-sm);
+    max-width: 440px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
