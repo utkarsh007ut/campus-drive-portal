@@ -26,13 +26,6 @@ document.getElementById("loginForm").addEventListener("submit", async (e) => {
             STUDENT: "student-dashboard.html",
         };
         window.location.href = redirects[data.role];
-
-        window.location.href = "admin-dashboard.html";
-
-        messageBox.textContent = `Logged in as ${data.name} (${data.role})`;
-        messageBox.className = "message success";
-
-        // Dashboards don't exist yet - next step. For now, just prove login works.
     } catch (err) {
         messageBox.textContent = err.message;
         messageBox.className = "message error";
