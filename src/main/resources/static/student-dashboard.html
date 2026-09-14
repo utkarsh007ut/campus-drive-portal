@@ -14,8 +14,8 @@
 
 <div class="dashboard-container">
     <div class="tabs">
-        <button class="tab-btn active" onclick="showTab('jobs')">Browse Jobs</button>
-        <button class="tab-btn" onclick="showTab('applications')">My Applications</button>
+        <button class="tab-btn active" data-tab="jobs" onclick="showTab('jobs')">Browse Jobs</button>
+        <button class="tab-btn" data-tab="applications" onclick="showTab('applications')">My Applications</button>
     </div>
 
     <div id="tab-jobs" class="tab-panel"><div id="jobsList" class="list"></div></div>

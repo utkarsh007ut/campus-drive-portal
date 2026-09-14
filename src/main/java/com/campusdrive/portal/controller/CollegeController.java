@@ -25,6 +25,12 @@ public class CollegeController {
         return collegeService.register(req);
     }
 
+    @GetMapping("/approved")
+    @PreAuthorize("hasRole('COMPANY')")
+    public List<CollegeResponse> listApproved() {
+        return collegeService.listApproved();
+    }
+
     @GetMapping
     @PreAuthorize("hasRole('ADMIN')")
     public List<CollegeResponse> listAll() {

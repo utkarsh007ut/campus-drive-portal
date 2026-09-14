@@ -6,7 +6,7 @@ function showTab(name) {
         document.getElementById(`tab-${t}`).classList.toggle("hidden", t !== name);
     });
     document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
-    event.target.classList.add("active");
+    document.querySelector(`.tab-btn[data-tab="${name}"]`).classList.add("active");
     if (name === "drives") loadDrives();
     if (name === "applications") loadApplications();
 }

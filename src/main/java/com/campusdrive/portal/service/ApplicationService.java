@@ -17,12 +17,14 @@ public class ApplicationService {
     private final ApplicationRepository applicationRepository;
     private final JobRepository jobRepository;
     private final StudentRepository studentRepository;
+    private final NotificationService notificationService;
 
     public ApplicationService(ApplicationRepository applicationRepository, JobRepository jobRepository,
-                              StudentRepository studentRepository) {
+                              StudentRepository studentRepository, NotificationService notificationService) {
         this.applicationRepository = applicationRepository;
         this.jobRepository = jobRepository;
         this.studentRepository = studentRepository;
+        this.notificationService = notificationService;
     }
 
     public ApplicationResponse apply(Long jobId, Long studentId) {
@@ -54,6 +56,9 @@ public class ApplicationService {
         Application app = getOwnedByCollege(applicationId, collegeId);
         app.setStatus(ApplicationStatus.FORWARDED_TO_COMPANY); // shortlisted = immediately forwarded, for MVP simplicity
         app.setDecidedAt(LocalDateTime.now());
+
+        notificationService.notify(app.getStudent().getEmail(), "Application Shortlisted",
+                "Your application for " + app.getJob().getTitle() + " has been shortlisted and forwarded to the company.");
         return new ApplicationResponse(applicationRepository.save(app));
     }
 
@@ -62,6 +67,9 @@ public class ApplicationService {
         app.setStatus(ApplicationStatus.REJECTED_BY_COLLEGE);
         app.setRejectionReason(req.getReason());
         app.setDecidedAt(LocalDateTime.now());
+
+        notificationService.notify(app.getStudent().getEmail(), "Application Update",
+                "Your application for " + app.getJob().getTitle() + " was not shortlisted. Reason: " + req.getReason());
         return new ApplicationResponse(applicationRepository.save(app));
     }
 
@@ -78,6 +86,10 @@ public class ApplicationService {
 
         app.setStatus(select ? ApplicationStatus.SELECTED : ApplicationStatus.REJECTED_BY_COMPANY);
         app.setDecidedAt(LocalDateTime.now());
+
+        notificationService.notify(app.getStudent().getEmail(), "Final Placement Decision",
+                select ? "Congratulations! You have been selected for " + app.getJob().getTitle() + "."
+                        : "You were not selected for " + app.getJob().getTitle() + ".");
         return new ApplicationResponse(applicationRepository.save(app));
     }
 

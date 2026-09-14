@@ -39,4 +39,8 @@ public class CollegeService {
     public List<CollegeResponse> listAll() {
         return collegeRepository.findAll().stream().map(CollegeResponse::new).toList();
     }
+
+    public List<CollegeResponse> listApproved() {
+        return collegeRepository.findByStatus(ApprovalStatus.APPROVED).stream().map(CollegeResponse::new).toList();
+    }
 }

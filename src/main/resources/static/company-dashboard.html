@@ -14,22 +14,27 @@
 
 <div class="dashboard-container">
     <div class="tabs">
-        <button class="tab-btn active" onclick="showTab('propose')">Propose Drive</button>
-        <button class="tab-btn" onclick="showTab('drives')">My Drives</button>
-        <button class="tab-btn" onclick="showTab('applications')">Applications</button>
+        <button class="tab-btn active" data-tab="propose" onclick="showTab('propose')">Propose Drive</button>
+        <button class="tab-btn" data-tab="drives" onclick="showTab('drives')">My Drives</button>
+        <button class="tab-btn" data-tab="applications" onclick="showTab('applications')">Applications</button>
     </div>
 
     <div id="tab-propose" class="tab-panel">
-        <div class="form-panel">
+        <div class="form-panel" style="max-width:600px;">
             <h3>Propose a Campus Drive</h3>
-            <input type="number" id="collegeId" placeholder="College ID">
-            <input type="text" id="requirements" placeholder="Requirements (e.g. CGPA 7+, Java, SQL)">
-            <button class="btn-primary" onclick="proposeDrive()">Send Request</button>
+            <div>
+                <label style="font-size:13px; font-weight:600; color:var(--text-muted); display:block; margin-bottom:8px;">Select Colleges</label>
+                <div id="collegeCheckboxList" class="list" style="max-height:220px; overflow-y:auto; border:1.5px solid var(--border); border-radius:9px; padding:10px;"></div>
+            </div>
+            <textarea id="requirements" placeholder="Requirements (e.g. CGPA 7+, Java, SQL)" rows="3"></textarea>
+            <button class="btn-primary" onclick="proposeDrive()">Send Request to Selected Colleges</button>
         </div>
     </div>
 
-    <div id="tab-drives" class="tab-panel hidden"><div id="drivesList" class="list"></div></div>
-    <div id="tab-applications" class="tab-panel hidden"><div id="appsList" class="list"></div></div>
+    <div id="tab-drives" class="tab-panel hidden">
+        <div id="collegeFilterBar" class="tabs" style="margin-bottom:16px;"></div>
+        <div id="drivesList" class="list"></div>
+    </div>
 </div>
 
 <script src="js/api.js"></script>

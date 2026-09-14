@@ -16,10 +16,14 @@ public class JobService {
 
     private final JobRepository jobRepository;
     private final CampusDriveRepository driveRepository;
+    private final NotificationService notificationService;
 
-    public JobService(JobRepository jobRepository, CampusDriveRepository driveRepository) {
+
+    public JobService(JobRepository jobRepository, CampusDriveRepository driveRepository,
+                      NotificationService notificationService) {
         this.jobRepository = jobRepository;
         this.driveRepository = driveRepository;
+        this.notificationService=notificationService;
     }
 
     public JobResponse publishJob(Long driveId, Long collegeId, PublishJobRequest req) {
@@ -42,6 +46,9 @@ public class JobService {
         job.setDescription(req.getDescription());
         job.setRequirements(req.getRequirements());
         job.setMinCgpa(req.getMinCgpa());
+
+        notificationService.notify(drive.getCompany().getEmail(), "Job Published",
+                drive.getCollege().getName() + " has published a job for your accepted drive: " + req.getTitle());
 
         return new JobResponse(jobRepository.save(job));
     }

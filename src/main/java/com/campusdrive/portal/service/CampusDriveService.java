@@ -22,6 +22,7 @@ public class CampusDriveService {
     private final CampusDriveRepository driveRepository;
     private final CollegeRepository collegeRepository;
     private final CompanyRepository companyRepository;
+    private final NotificationService notificationService;
 
     @Value("${app.drive.expiry-days}")
     private int expiryDays;
@@ -30,10 +31,11 @@ public class CampusDriveService {
     private int maxResends;
 
     public CampusDriveService(CampusDriveRepository driveRepository, CollegeRepository collegeRepository,
-                              CompanyRepository companyRepository) {
+                              CompanyRepository companyRepository , NotificationService notificationService) {
         this.driveRepository = driveRepository;
         this.collegeRepository = collegeRepository;
         this.companyRepository = companyRepository;
+        this.notificationService=notificationService;
     }
 
     public CampusDriveResponse proposeDrive(Long companyId, ProposeDriveRequest req) {
@@ -42,7 +44,8 @@ public class CampusDriveService {
         College college = collegeRepository.findById(req.getCollegeId())
                 .orElseThrow(() -> new IllegalArgumentException("College not found"));
 
-        long priorAttempts = driveRepository.countByCompanyIdAndCollegeId(companyId, req.getCollegeId());
+        long priorAttempts = driveRepository.countByCompanyIdAndCollegeIdAndStatusIn(
+                companyId, req.getCollegeId(), List.of(DriveStatus.DECLINED, DriveStatus.EXPIRED));
         if (priorAttempts >= maxResends) {
             throw new IllegalStateException(
                     "You have already sent the maximum of " + maxResends + " requests to this college");
@@ -58,6 +61,11 @@ public class CampusDriveService {
         drive.setPreviousDriveId(req.getPreviousDriveId());
 
         CampusDrive saved = driveRepository.save(drive);
+
+        notificationService.notify(college.getEmail(), "New Campus Drive Request",
+                company.getName() + " has proposed a campus drive. Please review it in your dashboard.");
+
+
         return new CampusDriveResponse(saved);
     }
 
@@ -67,6 +75,10 @@ public class CampusDriveService {
 
         drive.setStatus(DriveStatus.ACCEPTED);
         drive.setRespondedAt(LocalDateTime.now());
+
+        notificationService.notify(drive.getCompany().getEmail(), "Campus Drive Accepted",
+                drive.getCollege().getName() + " has accepted your campus drive request.");
+
         return new CampusDriveResponse(driveRepository.save(drive));
     }
 
@@ -77,6 +89,11 @@ public class CampusDriveService {
         drive.setStatus(DriveStatus.DECLINED);
         drive.setDeclineNote(req.getDeclineNote());
         drive.setRespondedAt(LocalDateTime.now());
+
+        notificationService.notify(drive.getCompany().getEmail(), "Campus Drive Declined",
+                drive.getCollege().getName() + " declined your request. Reason: " + req.getDeclineNote());
+
+
         return new CampusDriveResponse(driveRepository.save(drive));
     }
 

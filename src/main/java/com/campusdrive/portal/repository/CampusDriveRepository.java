@@ -16,4 +16,6 @@ public interface CampusDriveRepository extends JpaRepository<CampusDrive, Long> 
     // used to enforce the resend cap: how many times has this company already
     // approached this specific college?
     long countByCompanyIdAndCollegeId(Long companyId, Long collegeId);
+
+    long countByCompanyIdAndCollegeIdAndStatusIn(Long companyId, Long collegeId, List<DriveStatus> statuses);
 }
