@@ -22,7 +22,7 @@
 body { background: var(--bg); color: var(--text-dark); }
 
 /* ===== shared form elements, used by login + every dashboard form ===== */
-input, select {
+input, select ,textarea {
     padding: 11px 13px;
     border: 1.5px solid var(--border);
     border-radius: 9px;
@@ -69,3 +69,18 @@ button {
 .message.success { color: var(--success); }
 
 .hidden { display: none; }
+
+select[multiple] {
+    padding: 4px;
+    height: auto;
+}
+
+select[multiple] option {
+    padding: 8px 10px;
+    border-radius: 6px;
+}
+
+select[multiple] option:checked {
+    background: var(--primary-light);
+    color: var(--primary);
+}

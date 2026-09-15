@@ -23,8 +23,10 @@
         <div class="form-panel" style="max-width:600px;">
             <h3>Propose a Campus Drive</h3>
             <div>
-                <label style="font-size:13px; font-weight:600; color:var(--text-muted); display:block; margin-bottom:8px;">Select Colleges</label>
-                <div id="collegeCheckboxList" class="list" style="max-height:220px; overflow-y:auto; border:1.5px solid var(--border); border-radius:9px; padding:10px;"></div>
+                <label style="font-size:13px; font-weight:600; color:var(--text-muted); display:block; margin-bottom:8px;">
+                    Select Colleges <span style="font-weight:400;">(Ctrl/Cmd + Click for multiple)</span>
+                </label>
+                <select id="collegeSelect" multiple size="6"></select>
             </div>
             <textarea id="requirements" placeholder="Requirements (e.g. CGPA 7+, Java, SQL)" rows="3"></textarea>
             <button class="btn-primary" onclick="proposeDrive()">Send Request to Selected Colleges</button>
@@ -34,6 +36,10 @@
     <div id="tab-drives" class="tab-panel hidden">
         <div id="collegeFilterBar" class="tabs" style="margin-bottom:16px;"></div>
         <div id="drivesList" class="list"></div>
+    </div>
+
+    <div id="tab-applications" class="tab-panel hidden">
+        <div id="appsList" class="list"></div>
     </div>
 </div>
 
