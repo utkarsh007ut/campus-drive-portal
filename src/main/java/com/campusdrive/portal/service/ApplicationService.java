@@ -37,8 +37,6 @@ public class ApplicationService {
             throw new IllegalStateException("You have already applied to this job");
         }
 
-        // eligibility pre-filter - stops obviously ineligible applications before
-        // they ever reach the college's screening queue
         if (job.getMinCgpa() != null && student.getCgpa() != null && student.getCgpa() < job.getMinCgpa()) {
             throw new IllegalStateException(
                     "Your CGPA (" + student.getCgpa() + ") does not meet this job's minimum requirement of " + job.getMinCgpa());

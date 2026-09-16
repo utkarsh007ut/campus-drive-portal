@@ -25,15 +25,31 @@ async function apiFetch(path, options = {}) {
     headers["Content-Type"] = "application/json";
 
     const token = getToken();
+
     if (token) {
         headers["Authorization"] = "Bearer " + token;
     }
 
-    const response = await fetch(API_BASE + path, { ...options, headers });
+    const response = await fetch(API_BASE + path, {
+        ...options,
+        headers
+    });
+
     const data = await response.json().catch(() => null);
 
-    if (!response.ok) {
-        throw new Error((data && (data.error || JSON.stringify(data.errors))) || "Request failed");
+    // JWT expired/invalid
+    if (response.status === 401) {
+        localStorage.clear();
+        window.location.href = "login.html";
+        return;
     }
+
+    if (!response.ok) {
+        throw new Error(
+            (data && (data.error || JSON.stringify(data.errors))) ||
+            "Request failed"
+        );
+    }
+
     return data;
 }

@@ -34,7 +34,7 @@ public class CampusDrive {
     private DriveStatus status = DriveStatus.REQUESTED;
 
     @Column(length = 1000)
-    private String declineNote; // only ever set when status = DECLINED
+    private String declineNote;
 
     private LocalDateTime requestedAt = LocalDateTime.now();
     private LocalDateTime respondedAt;
