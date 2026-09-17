@@ -3,10 +3,7 @@ package com.campusdrive.portal.service;
 import com.campusdrive.portal.dto.CampusDriveResponse;
 import com.campusdrive.portal.dto.DeclineDriveRequest;
 import com.campusdrive.portal.dto.ProposeDriveRequest;
-import com.campusdrive.portal.entity.CampusDrive;
-import com.campusdrive.portal.entity.College;
-import com.campusdrive.portal.entity.Company;
-import com.campusdrive.portal.entity.DriveStatus;
+import com.campusdrive.portal.entity.*;
 import com.campusdrive.portal.repository.CampusDriveRepository;
 import com.campusdrive.portal.repository.CollegeRepository;
 import com.campusdrive.portal.repository.CompanyRepository;
@@ -31,11 +28,11 @@ public class CampusDriveService {
     private int maxResends;
 
     public CampusDriveService(CampusDriveRepository driveRepository, CollegeRepository collegeRepository,
-                              CompanyRepository companyRepository , NotificationService notificationService) {
+                              CompanyRepository companyRepository, NotificationService notificationService) {
         this.driveRepository = driveRepository;
         this.collegeRepository = collegeRepository;
         this.companyRepository = companyRepository;
-        this.notificationService=notificationService;
+        this.notificationService = notificationService;
     }
 
     public CampusDriveResponse proposeDrive(Long companyId, ProposeDriveRequest req) {
@@ -48,7 +45,7 @@ public class CampusDriveService {
                 companyId, req.getCollegeId(), List.of(DriveStatus.DECLINED, DriveStatus.EXPIRED));
         if (priorAttempts >= maxResends) {
             throw new IllegalStateException(
-                    "You have already sent the maximum of " + maxResends + " requests to this college");
+                    "You have already sent the maximum of " + maxResends + " failed requests to this college");
         }
 
         CampusDrive drive = new CampusDrive();
@@ -65,7 +62,6 @@ public class CampusDriveService {
         notificationService.notify(college.getEmail(), "New Campus Drive Request",
                 company.getName() + " has proposed a campus drive. Please review it in your dashboard.");
 
-
         return new CampusDriveResponse(saved);
     }
 
@@ -75,11 +71,12 @@ public class CampusDriveService {
 
         drive.setStatus(DriveStatus.ACCEPTED);
         drive.setRespondedAt(LocalDateTime.now());
+        CampusDrive saved = driveRepository.save(drive);
 
         notificationService.notify(drive.getCompany().getEmail(), "Campus Drive Accepted",
                 drive.getCollege().getName() + " has accepted your campus drive request.");
 
-        return new CampusDriveResponse(driveRepository.save(drive));
+        return new CampusDriveResponse(saved);
     }
 
     public CampusDriveResponse declineDrive(Long driveId, Long collegeId, DeclineDriveRequest req) {
@@ -89,12 +86,12 @@ public class CampusDriveService {
         drive.setStatus(DriveStatus.DECLINED);
         drive.setDeclineNote(req.getDeclineNote());
         drive.setRespondedAt(LocalDateTime.now());
+        CampusDrive saved = driveRepository.save(drive);
 
         notificationService.notify(drive.getCompany().getEmail(), "Campus Drive Declined",
                 drive.getCollege().getName() + " declined your request. Reason: " + req.getDeclineNote());
 
-
-        return new CampusDriveResponse(driveRepository.save(drive));
+        return new CampusDriveResponse(saved);
     }
 
     public List<CampusDriveResponse> getDrivesForCollege(Long collegeId) {
@@ -109,12 +106,11 @@ public class CampusDriveService {
         CampusDrive drive = driveRepository.findById(driveId)
                 .orElseThrow(() -> new IllegalArgumentException("Drive not found"));
         if (!drive.getCollege().getId().equals(collegeId)) {
-            throw new IllegalStateException("This drive was not sent to your college");
+            throw new IllegalStateException("This drive does not belong to your college");
         }
         return drive;
     }
 
-    // enforces immutability: a decision can only be made once
     private void assertStillPending(CampusDrive drive) {
         if (drive.getStatus() != DriveStatus.REQUESTED) {
             throw new IllegalStateException(

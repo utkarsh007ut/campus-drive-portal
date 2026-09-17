@@ -33,4 +33,11 @@ public class JobController {
     public List<JobResponse> listAll() {
         return jobService.getAllJobs();
     }
+
+    @GetMapping("/company")
+    @PreAuthorize("hasRole('COMPANY')")
+    public List<JobResponse> myJobs(Authentication authentication) {
+        Long companyId = (Long) authentication.getPrincipal();
+        return jobService.getJobsForCompany(companyId);
+    }
 }

@@ -57,8 +57,6 @@ async function proposeDrive() {
     showTab("drives");
 }
 
-
-
 async function loadDrives() {
     const listContainer = document.getElementById("drivesList");
     const filterContainer = document.getElementById("collegeFilterBar");
@@ -102,14 +100,10 @@ function filterDrivesByCollege(collegeId) {
     loadDrives();
 }
 
-// NOTE: filters client-side by matching your own company name against each
-// job's companyName, since there's no dedicated "my jobs" backend endpoint yet.
 async function loadApplications() {
     const container = document.getElementById("appsList");
-    const myName = localStorage.getItem("name");
     try {
-        const jobs = await apiFetch("/jobs");
-        const myJobs = jobs.filter(j => j.companyName === myName);
+        const myJobs = await apiFetch("/jobs/company");
 
         if (myJobs.length === 0) { container.innerHTML = `<div class="empty-state">No jobs published for your drives yet.</div>`; return; }
 

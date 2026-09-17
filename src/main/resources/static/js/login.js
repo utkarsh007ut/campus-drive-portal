@@ -5,7 +5,7 @@ function selectRole(role) {
 }
 
 document.getElementById("loginForm").addEventListener("submit", async (e) => {
-    e.preventDefault(); // stop the browser's default full-page-reload form submit
+    e.preventDefault();
 
     const email = document.getElementById("email").value;
     const password = document.getElementById("password").value;

@@ -1,4 +1,4 @@
-const API_BASE = "/api"; // relative path now - same origin as the backend, no need for the full URL
+const API_BASE = "/api";
 
 function saveSession(token, role, userId, name) {
     localStorage.setItem("token", token);
@@ -7,13 +7,8 @@ function saveSession(token, role, userId, name) {
     localStorage.setItem("name", name);
 }
 
-function getToken() {
-    return localStorage.getItem("token");
-}
-
-function getRole() {
-    return localStorage.getItem("role");
-}
+function getToken() { return localStorage.getItem("token"); }
+function getRole() { return localStorage.getItem("role"); }
 
 function logout() {
     localStorage.clear();
@@ -25,31 +20,13 @@ async function apiFetch(path, options = {}) {
     headers["Content-Type"] = "application/json";
 
     const token = getToken();
+    if (token) headers["Authorization"] = "Bearer " + token;
 
-    if (token) {
-        headers["Authorization"] = "Bearer " + token;
-    }
-
-    const response = await fetch(API_BASE + path, {
-        ...options,
-        headers
-    });
-
+    const response = await fetch(API_BASE + path, { ...options, headers });
     const data = await response.json().catch(() => null);
 
-    // JWT expired/invalid
-    if (response.status === 401) {
-        localStorage.clear();
-        window.location.href = "login.html";
-        return;
-    }
-
     if (!response.ok) {
-        throw new Error(
-            (data && (data.error || JSON.stringify(data.errors))) ||
-            "Request failed"
-        );
+        throw new Error((data && (data.error || JSON.stringify(data.errors))) || "Request failed");
     }
-
     return data;
 }

@@ -5,7 +5,7 @@ function showTab(name) {
     ["students", "drives", "jobs"].forEach(t => {
         document.getElementById(`tab-${t}`).classList.toggle("hidden", t !== name);
     });
-    document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+    document.querySelectorAll(".tab-btn[data-tab]").forEach(b => b.classList.remove("active"));
     document.querySelector(`.tab-btn[data-tab="${name}"]`).classList.add("active");
     if (name === "students") loadStudents();
     if (name === "drives") loadDrives();
@@ -25,9 +25,7 @@ async function addStudent() {
             }),
         });
         loadStudents();
-    } catch (err) {
-        alert("Failed: " + err.message);
-    }
+    } catch (err) { alert("Failed: " + err.message); }
 }
 
 async function loadStudents() {
@@ -71,7 +69,7 @@ async function acceptDrive(id) {
 
 async function declineDrive(id) {
     const reason = prompt("Reason for declining this drive:");
-    if (!reason) return; // matches backend's mandatory-reason rule - don't even send an empty one
+    if (!reason) return;
     try { await apiFetch(`/drives/${id}/decline`, { method: "POST", body: JSON.stringify({ declineNote: reason }) }); loadDrives(); }
     catch (err) { alert("Failed: " + err.message); }
 }
@@ -117,7 +115,10 @@ async function viewApplications(jobId) {
     try {
         const apps = await apiFetch(`/applications/job/${jobId}`);
         const container = document.getElementById("jobsList");
-        if (apps.length === 0) { container.innerHTML = `<div class="empty-state">No applications yet for this job. <button class="btn-primary" onclick="loadJobs()">Back</button></div>`; return; }
+        if (apps.length === 0) {
+            container.innerHTML = `<div class="empty-state">No applications yet for this job.</div><button class="btn-primary" onclick="loadJobs()">← Back</button>`;
+            return;
+        }
         container.innerHTML = `<button class="btn-primary" style="margin-bottom:14px" onclick="loadJobs()">← Back to Jobs</button>` +
             apps.map(a => `
       <div class="card-row">

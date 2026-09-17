@@ -5,7 +5,7 @@ function showTab(name) {
     ["jobs", "applications"].forEach(t => {
         document.getElementById(`tab-${t}`).classList.toggle("hidden", t !== name);
     });
-    document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+    document.querySelectorAll(".tab-btn[data-tab]").forEach(b => b.classList.remove("active"));
     document.querySelector(`.tab-btn[data-tab="${name}"]`).classList.add("active");
     if (name === "applications") loadApplications();
     if (name === "jobs") loadJobs();

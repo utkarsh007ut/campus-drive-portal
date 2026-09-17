@@ -44,13 +44,11 @@ public class JwtAuthFilter extends OncePerRequestFilter {
 
             if (email != null && SecurityContextHolder.getContext().getAuthentication() == null) {
                 var authorities = List.of(new SimpleGrantedAuthority("ROLE_" + role));
-                // principal is now userId (Long), not email - this is the key change.
-                // Controllers read this back via authentication.getPrincipal().
+    
                 var authToken = new UsernamePasswordAuthenticationToken(userId, null, authorities);
                 SecurityContextHolder.getContext().setAuthentication(authToken);
             }
         } catch (Exception ex) {
-            // invalid/expired token - request continues unauthenticated
         }
 
         filterChain.doFilter(request, response);

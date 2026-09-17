@@ -8,7 +8,6 @@
     --danger-light: #fee2e2;
     --text-dark: #1e1b2e;
     --text-muted: #5B6472;
-    --text-faint: #9ca3af;
     --border: #e2e6ed;
     --bg: #f4f6fb;
     --radius: 12px;
@@ -18,11 +17,10 @@
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Arial, sans-serif; }
-
 body { background: var(--bg); color: var(--text-dark); }
+.hidden { display: none; }
 
-/* ===== shared form elements, used by login + every dashboard form ===== */
-input, select ,textarea {
+input, select, textarea {
     padding: 11px 13px;
     border: 1.5px solid var(--border);
     border-radius: 9px;
@@ -32,13 +30,16 @@ input, select ,textarea {
     transition: all 0.2s ease;
     width: 100%;
 }
-
-input:focus, select:focus {
+input:focus, select:focus, textarea:focus {
     outline: none;
     border-color: var(--primary);
     background: white;
     box-shadow: 0 0 0 3px var(--primary-light);
 }
+
+select[multiple] { padding: 4px; height: auto; }
+select[multiple] option { padding: 8px 10px; border-radius: 6px; }
+select[multiple] option:checked { background: var(--primary-light); color: var(--primary); }
 
 button {
     padding: 11px 18px;
@@ -57,6 +58,7 @@ button {
     box-shadow: 0 6px 16px rgba(30,39,97,0.28);
 }
 .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 20px rgba(30,39,97,0.36); }
+.btn-primary:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
 
 .btn-success { background: var(--success); color: white; }
 .btn-success:hover { background: #028f7f; }
@@ -67,20 +69,3 @@ button {
 .message { margin-top: 10px; font-size: 13px; text-align: center; }
 .message.error { color: var(--danger); background: var(--danger-light); padding: 8px 12px; border-radius: 8px; }
 .message.success { color: var(--success); }
-
-.hidden { display: none; }
-
-select[multiple] {
-    padding: 4px;
-    height: auto;
-}
-
-select[multiple] option {
-    padding: 8px 10px;
-    border-radius: 6px;
-}
-
-select[multiple] option:checked {
-    background: var(--primary-light);
-    color: var(--primary);
-}
