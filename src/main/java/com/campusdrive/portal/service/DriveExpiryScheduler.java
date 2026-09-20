@@ -26,8 +26,11 @@ public class DriveExpiryScheduler {
                 .findByStatusAndExpiresAtBefore(DriveStatus.REQUESTED, LocalDateTime.now());
 
         for (CampusDrive drive : overdue) {
+
             drive.setStatus(DriveStatus.EXPIRED);
             drive.setRespondedAt(LocalDateTime.now());
+
+
         }
 
         if (!overdue.isEmpty()) {

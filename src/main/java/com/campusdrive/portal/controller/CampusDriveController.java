@@ -37,7 +37,8 @@ public class CampusDriveController {
 
     @PostMapping("/{id}/decline")
     @PreAuthorize("hasRole('COLLEGE')")
-    public CampusDriveResponse decline(@PathVariable Long id, @Valid @RequestBody DeclineDriveRequest req,
+    public CampusDriveResponse decline(@PathVariable Long id,
+                                       @Valid @RequestBody DeclineDriveRequest req,
                                        Authentication authentication) {
         Long collegeId = (Long) authentication.getPrincipal();
         return driveService.declineDrive(id, collegeId, req);

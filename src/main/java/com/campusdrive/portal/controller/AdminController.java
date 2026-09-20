@@ -21,11 +21,13 @@ public class AdminController {
 
     @GetMapping("/colleges/pending")
     public List<CollegeResponse> pendingColleges() {
+
         return adminService.getPendingColleges();
     }
 
     @GetMapping("/companies/pending")
     public List<CompanyResponse> pendingCompanies() {
+
         return adminService.getPendingCompanies();
     }
 
