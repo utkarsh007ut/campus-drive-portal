@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface ApplicationRepository extends JpaRepository<Application, Long> {
+
     List<Application> findByJobId(Long jobId);
     List<Application> findByStudentId(Long studentId);
     Optional<Application> findByJobIdAndStudentId(Long jobId, Long studentId);

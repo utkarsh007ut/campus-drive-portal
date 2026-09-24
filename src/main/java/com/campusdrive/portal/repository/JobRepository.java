@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface JobRepository extends JpaRepository<Job, Long> {
+
     Optional<Job> findByCampusDriveId(Long campusDriveId);
     List<Job> findAll();
     // Spring Data resolves this by walking Job -> campusDrive -> company -> id
