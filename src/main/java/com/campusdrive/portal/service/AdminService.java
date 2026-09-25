@@ -30,7 +30,9 @@ public class AdminService {
     }
 
     public List<CompanyResponse> getPendingCompanies() {
-        return companyRepository.findByStatus(ApprovalStatus.PENDING).stream().map(CompanyResponse::new).toList();
+        return companyRepository.findByStatus(ApprovalStatus.PENDING)
+                                .stream().map(CompanyResponse::new)
+                                .toList();
     }
 
     public CollegeResponse decideCollege(Long id, boolean approve) {

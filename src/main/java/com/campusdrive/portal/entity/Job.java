@@ -18,6 +18,7 @@ public class Job {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "campus_drive_id", nullable = false, unique = true)
     private CampusDrive campusDrive;

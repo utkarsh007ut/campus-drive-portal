@@ -14,6 +14,7 @@ import java.util.List;
 public class CollegeService {
 
     private final CollegeRepository collegeRepository;
+
     private final PasswordEncoder passwordEncoder;
 
     public CollegeService(CollegeRepository collegeRepository, PasswordEncoder passwordEncoder) {

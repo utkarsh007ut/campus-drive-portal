@@ -14,6 +14,7 @@ import java.util.List;
 @Service
 public class ApplicationService {
 
+
     private final ApplicationRepository applicationRepository;
     private final JobRepository jobRepository;
     private final StudentRepository studentRepository;
