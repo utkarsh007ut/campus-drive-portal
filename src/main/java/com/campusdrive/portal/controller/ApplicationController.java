@@ -13,7 +13,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/applications")
 public class ApplicationController {
-
     private final ApplicationService applicationService;
 
     public ApplicationController(ApplicationService applicationService) {

@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class CompanyService {
-
     private final CompanyRepository companyRepository;
     private final PasswordEncoder passwordEncoder;
 

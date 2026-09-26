@@ -14,7 +14,6 @@ import java.util.List;
 @RequestMapping("/api/students")
 @PreAuthorize("hasRole('COLLEGE')")
 public class StudentController {
-
     private final StudentService studentService;
 
     public StudentController(StudentService studentService) {

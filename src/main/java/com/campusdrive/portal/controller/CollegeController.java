@@ -14,6 +14,7 @@ import java.util.List;
 @RequestMapping("/api/colleges")
 public class CollegeController {
 
+
     private final CollegeService collegeService;
 
     public CollegeController(CollegeService collegeService) {
