@@ -16,6 +16,7 @@ public class CompanyService {
     public CompanyService(CompanyRepository companyRepository, PasswordEncoder passwordEncoder) {
         this.companyRepository = companyRepository;
         this.passwordEncoder = passwordEncoder;
+
     }
 
     public CompanyResponse register(RegisterCompanyRequest req) {
