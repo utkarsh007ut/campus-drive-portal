@@ -15,6 +15,7 @@ import java.util.List;
 @PreAuthorize("hasRole('COLLEGE')")
 public class StudentController {
     private final StudentService studentService;
+
     public StudentController(StudentService studentService) {
         this.studentService = studentService;
     }

@@ -26,6 +26,7 @@ public class JwtUtil {
         if (key == null) {
             key = Keys.hmacShaKeyFor(secret.getBytes());
         }
+
         return key;
     }
 
